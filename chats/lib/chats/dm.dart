@@ -120,60 +120,142 @@ class _ChatScreenState extends State<ChatScreen> {
                     ListView.builder(
                       itemCount: filteredUsers.length,
                       itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.grey[300],
-                                child: const Icon(Icons.person, color: Colors.white),
-                              ),
-                              title: Text(
-                                filteredUsers[index],
-                                style: const TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: const Text('Last message'),
-                              trailing: const Text('00:00'),
-                              onTap: () {
-                                // Implement chat item tap functionality
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return GestureDetector(
+                              onLongPress: () {
+                                RenderBox renderBox = context.findRenderObject() as RenderBox;
+                                final Offset offset = renderBox.localToGlobal(Offset.zero);
+                                showMenu(
+                                  context: context,
+                                  position: RelativeRect.fromLTRB(
+                                    offset.dx+ renderBox.size.width, // Left position
+                                    offset.dy, // Top position
+                                    offset.dx + renderBox.size.width, // Right position
+                                    offset.dy + renderBox.size.height, // Bottom position
+                                  ),
+                                  items: [
+                                    const PopupMenuItem<String>(
+                                      value: 'pin',
+                                      child: Text('Pin'),
+                                    ),
+                                    const PopupMenuItem<String>(
+                                      value: 'mark_as_unread',
+                                      child: Text('Mark as Unread'),
+                                    ),
+                                    const PopupMenuItem<String>(
+                                      value: 'block',
+                                      child: Text('Block'),
+                                    ),
+                                    const PopupMenuItem<String>(
+                                      value: 'mute',
+                                      child: Text('Mute'),
+                                    ),
+                                  ],
+                                ).then((value) {
+                                  if (value != null) {
+                                    handleMenuItemClick(value);
+                                  }
+                                });
                               },
-                            ),
-                            const Divider(
-                              height: 0,
-                              thickness: 1,
-                              indent: 72,
-                              endIndent: 16,
-                            ),
-                          ],
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.grey[300],
+                                      child: const Icon(Icons.person, color: Colors.white),
+                                    ),
+                                    title: Text(
+                                      filteredUsers[index],
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    subtitle: const Text('Last message'),
+                                    trailing: const Text('00:00'),
+                                    onTap: () {
+                                      // Implement chat item tap functionality
+                                    },
+                                  ),
+                                  const Divider(
+                                    height: 0,
+                                    thickness: 1,
+                                    indent: 72,
+                                    endIndent: 16,
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
                         );
                       },
                     ),
                     ListView.builder(
                       itemCount: filteredCommunities.length,
                       itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.grey[300],
-                                child: const Icon(Icons.group, color: Colors.white),
-                              ),
-                              title: Text(
-                                filteredCommunities[index],
-                                style: const TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: const Text('Community description'),
-                              trailing: const Text('00:00'),
-                              onTap: () {
-                                // Implement community item tap functionality
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return GestureDetector(
+                              onLongPress: () {
+                                RenderBox renderBox = context.findRenderObject() as RenderBox;
+                                final Offset offset = renderBox.localToGlobal(Offset.zero);
+                                showMenu(
+                                  context: context,
+                                  position: RelativeRect.fromLTRB(
+                                    offset.dx, // Left position
+                                    offset.dy, // Top position
+                                    offset.dx + renderBox.size.width, // Right position
+                                    offset.dy + renderBox.size.height, // Bottom position
+                                  ),
+                                  items: [
+                                    const PopupMenuItem<String>(
+                                      value: 'pin',
+                                      child: Text('Pin'),
+                                    ),
+                                    const PopupMenuItem<String>(
+                                      value: 'mark_as_unread',
+                                      child: Text('Mark as Unread'),
+                                    ),
+                                    const PopupMenuItem<String>(
+                                      value: 'block',
+                                      child: Text('Block'),
+                                    ),
+                                    const PopupMenuItem<String>(
+                                      value: 'mute',
+                                      child: Text('Mute'),
+                                    ),
+                                  ],
+                                ).then((value) {
+                                  if (value != null) {
+                                    handleMenuItemClick(value);
+                                  }
+                                });
                               },
-                            ),
-                            const Divider(
-                              height: 0,
-                              thickness: 1,
-                              indent: 72,
-                              endIndent: 16,
-                            ),
-                          ],
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.grey[300],
+                                      child: const Icon(Icons.group, color: Colors.white),
+                                    ),
+                                    title: Text(
+                                      filteredCommunities[index],
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    subtitle: const Text('Community description'),
+                                    trailing: const Text('00:00'),
+                                    onTap: () {
+                                      // Implement community item tap functionality
+                                    },
+                                  ),
+                                  const Divider(
+                                    height: 0,
+                                    thickness: 1,
+                                    indent: 72,
+                                    endIndent: 16,
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
                         );
                       },
                     ),
@@ -210,5 +292,22 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
     );
+  }
+
+  void handleMenuItemClick(String value) {
+    switch (value) {
+      case 'pin':
+        // Handle pin action
+        break;
+      case 'mark_as_unread':
+        // Handle mark as unread action
+        break;
+      case 'block':
+        // Handle block action
+        break;
+      case 'mute':
+        // Handle mute action
+        break;
+    }
   }
 }

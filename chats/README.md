@@ -41,7 +41,3 @@ Day or night, Yaarit has you covered with stunning UI/UX designs, available in b
 ## Conclusion
 
 Yaarit is more than just an app; it's your ultimate campus life companion, designed to enhance and simplify every aspect of your academic journey. Dive into a new era of campus engagement with Yaarit!
-
-git add --renormalize .
-git commit -m "Normalize all the line endings"
-
